@@ -1,4 +1,10 @@
 pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
+    if out.len() < steps {
+        panic!("output array must be at least as long as steps");
+    }
+    if steps > 64 {
+        panic!("64 is the maximum number of steps");
+    }
     let mut pattern : [bool; 64] = [false;64];
     let mut counts : [usize; 64] = [0;64];
     let mut remainders : [usize; 64] = [0;64];
