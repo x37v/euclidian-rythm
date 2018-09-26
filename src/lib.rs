@@ -5,9 +5,9 @@ pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
     if steps > 64 {
         panic!("64 is the maximum number of steps");
     }
-    let mut pattern : [bool; 64] = [false;64];
-    let mut counts : [usize; 64] = [0;64];
-    let mut remainders : [usize; 64] = [0;64];
+    let mut pattern: [bool; 64] = [false; 64];
+    let mut counts: [usize; 64] = [0; 64];
+    let mut remainders: [usize; 64] = [0; 64];
 
     let mut pulses = pulses;
 
@@ -42,7 +42,7 @@ pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
         pattern: &mut [bool],
         remainders: &[usize],
         level: isize,
-        index: usize
+        index: usize,
     ) -> usize {
         let mut index = index;
         if level == -1 {
@@ -62,16 +62,10 @@ pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
         }
     }
 
-    let _ = build(
-        &counts,
-        &mut pattern,
-        &remainders,
-        level as isize,
-        0
-    );
+    let _ = build(&counts, &mut pattern, &remainders, level as isize, 0);
 
     // Put a 1 on the first step
-    let index_first_one = pattern.iter().position(|&x| x == true).unwrap();
+    let index_first_one = pattern.iter().position(|&x| x).unwrap();
     for i in 0..steps {
         out[i] = pattern[(i + index_first_one) % steps];
     }
@@ -81,18 +75,21 @@ pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
 mod tests {
     use euclidian_rythm;
 
-	fn test_case(pulses: usize, steps: usize, value: &Vec<usize>) {
+    fn test_case(pulses: usize, steps: usize, value: &Vec<usize>) {
         let mut pattern = [false; 64];
         euclidian_rythm(&mut pattern, pulses, steps);
 
-		let res = pattern.iter().take(steps).map(|x| if *x { 1 } else { 0 }).collect::<Vec<usize>>();
-		assert_eq!(value, &res, "pulses: {} steps {}", pulses, steps);
-	}
+        let res = pattern
+            .iter()
+            .take(steps)
+            .map(|x| if *x { 1 } else { 0 })
+            .collect::<Vec<usize>>();
+        assert_eq!(value, &res, "pulses: {} steps {}", pulses, steps);
+    }
 
     //patterns from http://cgm.cs.mcgill.ca/~godfried/publications/banff.pdf
     #[test]
     fn patterns() {
-        let mut pattern = [false; 64];
         test_case(2, 5, &vec![1, 0, 1, 0, 0]);
         //test_case(3, 4, &vec![1, 0, 1, 1]);
         test_case(3, 5, &vec![1, 0, 1, 0, 1]);
@@ -107,4 +104,3 @@ mod tests {
         test_case(5, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 1]);
     }
 }
-
