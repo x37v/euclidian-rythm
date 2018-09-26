@@ -1,20 +1,17 @@
-extern crate smallvec;
+pub fn euclidian_rythm(pattern: &mut [bool], pulses: usize, steps: usize) {
+    let mut counts : [usize; 64] = [0;64];
+    let mut remainders : [usize; 64] = [0;64];
 
-use smallvec::SmallVec;
+    let mut pulses = pulses;
 
-pub fn euclidian_rythm(p: &mut [u8], pulses: usize, steps: usize) -> Result<(), &'static str> {
-    let mut pattern = SmallVec::from_slice(p);
-    pattern.clear();
-
+    //clamp
     if pulses > steps {
-        return Err("more pulses than steps.");
+        pulses = steps;
     }
 
     let mut divisor = steps - pulses;
 
     let mut level = 0;
-    let mut counts : [usize; 64] = [0;64];
-    let mut remainders : [usize; 64] = [0;64];
 
     remainders[0] = pulses;
 
@@ -22,7 +19,7 @@ pub fn euclidian_rythm(p: &mut [u8], pulses: usize, steps: usize) -> Result<(), 
     loop {
         let r = remainders[level];
         counts[level] = divisor / r;
-        remainders[level +1] = divisor % r;
+        remainders[level + 1] = divisor % r;
 
         divisor = remainders[level];
         level += 1;
@@ -36,38 +33,40 @@ pub fn euclidian_rythm(p: &mut [u8], pulses: usize, steps: usize) -> Result<(), 
     // Build the pattern
     fn build(
         counts: &[usize],
-        pattern: &mut SmallVec<[u8; 64]>,
+        pattern: &mut [bool],
         remainders: &[usize],
         level: isize,
-    ) {
+        index: usize
+    ) -> usize {
+        let mut index = index;
         if level == -1 {
-            pattern.push(0);
+            pattern[index] = false;
+            index + 1
         } else if level == -2 {
-            pattern.push(1);
+            pattern[index] = true;
+            index + 1
         } else {
             for _ in 0..counts[level as usize] {
-                build(counts, pattern, remainders, level - 1);
+                index = build(counts, pattern, remainders, level - 1, index);
             }
             if remainders[level as usize] != 0 {
-                build(counts, pattern, remainders, level - 2);
+                index = build(counts, pattern, remainders, level - 2, index);
             }
+            index
         }
     }
 
-    build(
+    let _ = build(
         &counts,
-        &mut pattern,
+        pattern,
         &remainders,
         level as isize,
+        0
     );
 
     // Put a 1 on the first step
-    let index_first_one = pattern.iter().position(|&x| x == 1).unwrap();
+    let index_first_one = pattern.iter().position(|&x| x == true).unwrap();
     pattern.rotate_left(index_first_one);
-
-    p.copy_from_slice(&pattern);
-
-    return Ok(());
 }
 
 #[cfg(test)]
@@ -75,34 +74,34 @@ mod tests {
     use euclidian_rythm;
     #[test]
     fn it_works() {
-        let mut pattern = [0 as u8; 8];
+        let mut pattern = [false; 8];
         let pulses = 4;
         let steps = pattern.len();
-        euclidian_rythm(&mut pattern, pulses, steps).unwrap();
+        euclidian_rythm(&mut pattern, pulses, steps);
         println!("{:?}", pattern);
 
-        let mut pattern = [0 as u8; 9];
+        let mut pattern = [false; 9];
         let pulses = 3;
         let steps = pattern.len();
-        euclidian_rythm(&mut pattern, pulses, steps).unwrap();
+        euclidian_rythm(&mut pattern, pulses, steps);
         println!("{:?}", pattern);
 
-        let mut pattern = [0 as u8; 12];
+        let mut pattern = [false; 12];
         let pulses = 7;
         let steps = pattern.len();
-        euclidian_rythm(&mut pattern, pulses, steps).unwrap();
+        euclidian_rythm(&mut pattern, pulses, steps);
         println!("{:?}", pattern);
 
-        let mut pattern = [0 as u8; 13];
+        let mut pattern = [false; 13];
         let pulses = 5;
         let steps = pattern.len();
-        euclidian_rythm(&mut pattern, pulses, steps).unwrap();
+        euclidian_rythm(&mut pattern, pulses, steps);
         println!("{:?}", pattern);
 
-        let mut pattern = [0 as u8; 31];
+        let mut pattern = [false; 31];
         let pulses = 7;
         let steps = pattern.len();
-        euclidian_rythm(&mut pattern, pulses, steps).unwrap();
+        euclidian_rythm(&mut pattern, pulses, steps);
         println!("{:?}", pattern);
     }
 }
