@@ -1,4 +1,5 @@
-pub fn euclidian_rythm(pattern: &mut [bool], pulses: usize, steps: usize) {
+pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
+    let mut pattern : [bool; 64] = [false;64];
     let mut counts : [usize; 64] = [0;64];
     let mut remainders : [usize; 64] = [0;64];
 
@@ -10,7 +11,6 @@ pub fn euclidian_rythm(pattern: &mut [bool], pulses: usize, steps: usize) {
     }
 
     let mut divisor = steps - pulses;
-
     let mut level = 0;
 
     remainders[0] = pulses;
@@ -58,7 +58,7 @@ pub fn euclidian_rythm(pattern: &mut [bool], pulses: usize, steps: usize) {
 
     let _ = build(
         &counts,
-        pattern,
+        &mut pattern,
         &remainders,
         level as isize,
         0
@@ -66,42 +66,49 @@ pub fn euclidian_rythm(pattern: &mut [bool], pulses: usize, steps: usize) {
 
     // Put a 1 on the first step
     let index_first_one = pattern.iter().position(|&x| x == true).unwrap();
-    pattern.rotate_left(index_first_one);
+    for i in 0..steps {
+        out[i] = pattern[(i + index_first_one) % steps];
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use euclidian_rythm;
+
+    fn print_pattern(pattern: &[bool], steps: usize) {
+        println!("{:?}", pattern.iter().take(steps).map(|x| if *x { 1 } else { 0 }).collect::<Vec<usize>>() );
+    }
+
     #[test]
     fn it_works() {
         let mut pattern = [false; 8];
         let pulses = 4;
         let steps = pattern.len();
         euclidian_rythm(&mut pattern, pulses, steps);
-        println!("{:?}", pattern);
+        print_pattern(&pattern, steps);
 
         let mut pattern = [false; 9];
         let pulses = 3;
         let steps = pattern.len();
         euclidian_rythm(&mut pattern, pulses, steps);
-        println!("{:?}", pattern);
+        print_pattern(&pattern, steps);
 
         let mut pattern = [false; 12];
         let pulses = 7;
         let steps = pattern.len();
         euclidian_rythm(&mut pattern, pulses, steps);
-        println!("{:?}", pattern);
+        print_pattern(&pattern, steps);
 
         let mut pattern = [false; 13];
         let pulses = 5;
         let steps = pattern.len();
         euclidian_rythm(&mut pattern, pulses, steps);
-        println!("{:?}", pattern);
+        print_pattern(&pattern, steps);
 
         let mut pattern = [false; 31];
         let pulses = 7;
         let steps = pattern.len();
         euclidian_rythm(&mut pattern, pulses, steps);
-        println!("{:?}", pattern);
+        print_pattern(&pattern, steps);
     }
 }
