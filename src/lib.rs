@@ -81,37 +81,30 @@ pub fn euclidian_rythm(out: &mut [bool], pulses: usize, steps: usize) {
 mod tests {
     use euclidian_rythm;
 
-    fn print_pattern(pattern: &[bool], steps: usize) {
-        println!("{:?}", pattern.iter().take(steps).map(|x| if *x { 1 } else { 0 }).collect::<Vec<usize>>() );
-    }
-
-    #[test]
-    fn it_works() {
+	fn test_case(pulses: usize, steps: usize, value: &Vec<usize>) {
         let mut pattern = [false; 64];
-
-        let pulses = 4;
-        let steps = 8;
         euclidian_rythm(&mut pattern, pulses, steps);
-        print_pattern(&pattern, steps);
 
-        let pulses = 3;
-        let steps = 9;
-        euclidian_rythm(&mut pattern, pulses, steps);
-        print_pattern(&pattern, steps);
+		let res = pattern.iter().take(steps).map(|x| if *x { 1 } else { 0 }).collect::<Vec<usize>>();
+		assert_eq!(value, &res, "pulses: {} steps {}", pulses, steps);
+	}
 
-        let pulses = 7;
-        let steps = 12;
-        euclidian_rythm(&mut pattern, pulses, steps);
-        print_pattern(&pattern, steps);
-
-        let pulses = 5;
-        let steps = 13;
-        euclidian_rythm(&mut pattern, pulses, steps);
-        print_pattern(&pattern, steps);
-
-        let pulses = 7;
-        let steps = 31;
-        euclidian_rythm(&mut pattern, pulses, steps);
-        print_pattern(&pattern, steps);
+    //patterns from http://cgm.cs.mcgill.ca/~godfried/publications/banff.pdf
+    #[test]
+    fn patterns() {
+        let mut pattern = [false; 64];
+        test_case(2, 5, &vec![1, 0, 1, 0, 0]);
+        //test_case(3, 4, &vec![1, 0, 1, 1]);
+        test_case(3, 5, &vec![1, 0, 1, 0, 1]);
+        test_case(3, 7, &vec![1, 0, 1, 0, 1, 0, 0]);
+        test_case(3, 8, &vec![1, 0, 0, 1, 0, 0, 1, 0]);
+        test_case(4, 7, &vec![1, 0, 1, 0, 1, 0, 1]);
+        test_case(4, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 0]);
+        test_case(4, 11, &vec![1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0]);
+        //test_case(5, 6, &vec![1, 0, 1, 1, 1, 1]);
+        //test_case(5, 7, &vec![1, 0, 1, 1, 0, 1, 1]);
+        test_case(5, 8, &vec![1, 0, 1, 1, 0, 1, 1, 0]);
+        test_case(5, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 1]);
     }
 }
+
