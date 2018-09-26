@@ -81,33 +81,30 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let mut pattern = [false; 8];
+        let mut pattern = [false; 64];
+
         let pulses = 4;
-        let steps = pattern.len();
+        let steps = 8;
         euclidian_rythm(&mut pattern, pulses, steps);
         print_pattern(&pattern, steps);
 
-        let mut pattern = [false; 9];
         let pulses = 3;
-        let steps = pattern.len();
+        let steps = 9;
         euclidian_rythm(&mut pattern, pulses, steps);
         print_pattern(&pattern, steps);
 
-        let mut pattern = [false; 12];
         let pulses = 7;
-        let steps = pattern.len();
+        let steps = 12;
         euclidian_rythm(&mut pattern, pulses, steps);
         print_pattern(&pattern, steps);
 
-        let mut pattern = [false; 13];
         let pulses = 5;
-        let steps = pattern.len();
+        let steps = 13;
         euclidian_rythm(&mut pattern, pulses, steps);
         print_pattern(&pattern, steps);
 
-        let mut pattern = [false; 31];
         let pulses = 7;
-        let steps = pattern.len();
+        let steps = 31;
         euclidian_rythm(&mut pattern, pulses, steps);
         print_pattern(&pattern, steps);
     }
