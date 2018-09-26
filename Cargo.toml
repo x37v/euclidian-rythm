@@ -1,9 +1,9 @@
 [package]
 name = "euclidian-rythms"
-version = "0.1.0"
-authors = ["Paul Adenot <paul@paul.cx>"]
+version = "0.2.0"
+authors = ["Paul Adenot <paul@paul.cx>", "Alex Norman <alex@x37v.info>"]
 description = "Generate euclidian rythms using the Bjorklund's algorithm"
-repository = "https://github.com/padenot/euclidian-rythm"
+repository = "https://github.com/x37v/euclidian-rythm"
 license = "MIT/Apache-2.0"
 readme = "README.md"
 categories = ["multimedia::audio"]
