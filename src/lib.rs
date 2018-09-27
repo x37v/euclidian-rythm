@@ -91,15 +91,23 @@ mod tests {
     #[test]
     fn patterns() {
         test_case(2, 5, &vec![1, 0, 1, 0, 0]);
-        //test_case(3, 4, &vec![1, 0, 1, 1]);
+
+        //paper has: test_case(3, 4, &vec![1, 0, 1, 1]);
+        test_case(3, 4, &vec![1, 1, 1, 0]);
+
         test_case(3, 5, &vec![1, 0, 1, 0, 1]);
         test_case(3, 7, &vec![1, 0, 1, 0, 1, 0, 0]);
         test_case(3, 8, &vec![1, 0, 0, 1, 0, 0, 1, 0]);
         test_case(4, 7, &vec![1, 0, 1, 0, 1, 0, 1]);
         test_case(4, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 0]);
         test_case(4, 11, &vec![1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0]);
-        //test_case(5, 6, &vec![1, 0, 1, 1, 1, 1]);
-        //test_case(5, 7, &vec![1, 0, 1, 1, 0, 1, 1]);
+
+        //paper has test_case(5, 6, &vec![1, 0, 1, 1, 1, 1]);
+        test_case(5, 6, &vec![1, 1, 1, 1, 1, 0]);
+
+        //paper has test_case(5, 7, &vec![1, 0, 1, 1, 0, 1, 1]);
+        test_case(5, 7, &vec![1, 1, 0, 1, 1, 0, 1]);
+
         test_case(5, 8, &vec![1, 0, 1, 1, 0, 1, 1, 0]);
         test_case(5, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 1]);
     }
