@@ -110,5 +110,9 @@ mod tests {
 
         test_case(5, 8, &vec![1, 0, 1, 1, 0, 1, 1, 0]);
         test_case(5, 9, &vec![1, 0, 1, 0, 1, 0, 1, 0, 1]);
+
+        test_case(5, 5, &vec![1, 1, 1, 1, 1]);
+        test_case(6, 5, &vec![1, 1, 1, 1, 1]);
+        test_case(64, 5, &vec![1, 1, 1, 1, 1]);
     }
 }
