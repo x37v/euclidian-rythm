@@ -1,7 +1,11 @@
 # Euclidian rythm generators
 
-<a href="https://crates.io/crates/euclidian-rythm">
-    <img src="http://meritbadge.herokuapp.com/euclidian-rythm" alt="crates.io">
+Updated by Alex for his use... no allocation.
+
+original:
+
+<a href="https://crates.io/crates/euclidian-rythms">
+    <img src="http://meritbadge.herokuapp.com/euclidian-rythms" alt="crates.io">
 </a>
 
 Rust implementation of [“The Euclidean Algorithm Generates Traditional Musical
@@ -14,9 +18,8 @@ implementation](https://ics-web.sns.ornl.gov/timing/Rep-Rate%20Tech%20Note.pdf).
 
 # Example
 
-Generating the bell pattern of [Adowa:
-Mpre](https://www.youtube.com/watch?v=D8Fr1Bw-znM), traditional Ashanti music
-from Ghana.
+Generating the bell pattern of [Adowa: Mpre](https://www.youtube.com/watch?v=D8Fr1Bw-znM),
+traditional Ashanti music from Ghana.
 
 ```rust
 let mut pattern = [0 as u8; 12];
