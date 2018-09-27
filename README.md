@@ -24,9 +24,9 @@ traditional Ashanti music from Ghana.
 ```rust
 let mut pattern = [0 as u8; 12];
 let pulses = 7;
-euclidian_rythm(&mut pattern, pulses).unwrap();
+euclidian_rythm(&mut pattern, pulses, 12).unwrap();
 println!("{:?}", pattern);
-// [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0]
+// [true, false, true, false, true, true, false, true, false, true, true, false]
 ```
 
 # License
